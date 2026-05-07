@@ -1,0 +1,55 @@
+SOC Incident Report
+Traffic Analysis Exercise: Download from Fake Software Site
+Date of PCAP Exercise: 2025-01-22
+Analyst: Hyperveil
+
+Executive Summary
+A Windows workstation on the BLUEMOONTUESDAY / bluemoontuesday.com LAN was infected after visiting a fake Google Authenticator download page. Network evidence identifies the infected host, associated user account, likely fake Authenticator domain, and C2 infrastructure contacted after infection.
+
+Incident Findings
+
+1. IP address of infected Windows client
+Answer: 10.1.17.215
+
+2. MAC address of infected Windows client
+Answer: 00:d0:b7:26:4a:74
+
+3. Hostname of infected Windows client
+Answer: DESKTOP-L8C5GSJ
+
+4. User account name from infected Windows client
+Answer: shutchenson
+
+5. Likely domain name for the fake Google Authenticator page
+Answer: google-authenticator.burleson-appliance.net
+
+Additional related suspicious domain observed:
+- authenticatoor.org
+
+6. IP addresses used for Command and Control (C2) servers
+Answer:
+- 5.252.153.241
+- 45.125.66.32
+- 45.125.66.252
+
+Analyst Note
+82.221.136.26 is also suspicious and is associated with authenticatoor.org / initial lure or delivery activity, but it is not included in the primary C2 list here because the stronger PCAP-based writeups distinguish it from the recurring C2/staging infrastructure.
+
+Relevant Environment Details
+- LAN segment: 10.1.17.0/24
+- AD domain: BLUEMOONTUESDAY / bluemoontuesday.com
+- Domain controller: 10.1.17.2 / WIN-GSH54QLW48D
+- Gateway: 10.1.17.1
+- Broadcast address: 10.1.17.255
+
+Recommended Follow-Up Actions
+- Isolate DESKTOP-L8C5GSJ from the network.
+- Reset credentials for user account shutchenson and review recent authentication activity.
+- Block the listed C2 IPs and suspicious domains at DNS, proxy, firewall, and EDR controls.
+- Hunt for PowerShell download cradle behavior, suspicious VBScript execution, and persistence involving TeamViewer.exe under nonstandard paths.
+- Review other hosts for outbound communication to the same infrastructure.
+
+Sources Consulted
+- Malware-Traffic-Analysis.net exercise page: https://www.malware-traffic-analysis.net/2025/01/22/index.html
+- Malware-Traffic-Analysis.net answers page: https://www.malware-traffic-analysis.net/2025/01/22/page2.html
+- Public PCAP walkthroughs corroborating host artifacts and C2 indicators.
